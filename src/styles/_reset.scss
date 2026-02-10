@@ -96,6 +96,17 @@ input[type="number"] {
 input[type="file"] {
   appearance: none;
 }
+
+textarea {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  resize: none;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
 ::placeholder {
   color: #999;
   opacity: 1;
@@ -107,3 +118,4 @@ textarea:disabled {
   opacity: 1;
   cursor: not-allowed;
 }
+

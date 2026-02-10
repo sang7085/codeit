@@ -15,10 +15,16 @@ export default function HomePage() {
   const todoItems = items.filter((item) => !item.isCompleted);
   const doneItems = items.filter((item) => item.isCompleted);
 
+  async function fetchTodosList() {
+    const data = await getItems();
+    setItems(data);
+  }
+
   useEffect(() => {
     fetchTodosList();
   }, []);
 
+  // ⭐ 수정: 의존성 배열을 빈 배열로 변경
   useEffect(() => {
     const handleRouteChange = () => {
       fetchTodosList();
@@ -29,12 +35,7 @@ export default function HomePage() {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, [router.events]);
-
-  async function fetchTodosList() {
-    const data = await getItems();
-    setItems(data);
-  }
+  }, []); // ⭐ 빈 배열로 변경
 
   async function handleAdd() {
     const trimmed = input.trim();
@@ -76,10 +77,10 @@ export default function HomePage() {
                 {todoItems.map((item) => (
                   <li className="item-list" key={item.id}>
                     <Link href={`/todos/${item.id}`}>
-                    <div className="info">
-                      <div className="checkbox"><Image src="/assets/images/img-check-off.svg" width={32} height={32} alt="checked" /></div>
-                      <h3>{item.name}</h3>
-                    </div>
+                      <div className="info">
+                        <div className="checkbox"><Image src="/assets/images/img-check-off.svg" width={32} height={32} alt="checked" /></div>
+                        <h3>{item.name}</h3>
+                      </div>
                     </Link>
                   </li>
                 ))}
@@ -94,12 +95,15 @@ export default function HomePage() {
 
             <div className="right-box">
               <h2 className="box-title"><Image src="/assets/images/img-box-title02.svg" width={97} height={36} alt="DONE" /></h2>
-              <ul className="item-list-wrap">
+              <ul className="item-list-wrap checked">
                 {doneItems.map((item) => (
                   <li className="item-list" key={item.id}>
                     <Link href={`/todos/${item.id}`}>
-                      {item.name}
-                    </Link>{" "}
+                      <div className="info">
+                        <div className="checkbox"><Image src="/assets/images/img-check-on.svg" width={32} height={32} alt="checked" /></div>
+                        <h3>{item.name}</h3>
+                      </div>
+                    </Link>
                   </li>
                 ))}
                 {doneItems.length === 0 &&

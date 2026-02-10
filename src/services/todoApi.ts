@@ -54,8 +54,8 @@ export async function editItem(
 	itemId: number,
 	payload: {
 		name: string;
-		memo: string | null;
-		imageUrl: string | null;
+		memo: string;
+		imageUrl: string;
 		isCompleted: boolean;
 	}
 ) {
@@ -70,8 +70,13 @@ export async function editItem(
 				body: JSON.stringify(payload),
 			}
 		);
-
+		
 		const json = await response.json();
+		
+		console.log("PATCH status:", response.status);
+		console.log("PATCH response:", json);
+		console.log("PATCH payload:", payload);
+
 		return json;
 	} catch (error) {
 		console.log("error");

@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { ItemDetail } from "@/types/todo";
-import { getItemDetail, editItem, uploadImage } from "@/services/todoApi";
+import { getItemDetail, editItem, uploadImage, deleteItems } from "@/services/todoApi";
 import Header from "@/components/header";
 
 export default function TodoDetailPage() {
@@ -38,6 +38,7 @@ export default function TodoDetailPage() {
     fetchDetail(itemId);
   }, [router.isReady, id]);
 
+  // 내용 수정하기
   useEffect(() => {
     if (!detail) return;
 
@@ -68,6 +69,7 @@ export default function TodoDetailPage() {
     );
   }, [name, memo, imageUrl, isCompleted]);
 
+  // 파일첨부하기
   async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -79,7 +81,7 @@ export default function TodoDetailPage() {
     }
 
     try {
-
+      setIsUploading(true);
       const result = await uploadImage(file);
       const url =
         (result as any)?.url ??
@@ -97,6 +99,20 @@ export default function TodoDetailPage() {
     }
   }
 
+  // 삭제하기
+  async function handleDelete() {
+    if (!detail) return;
+
+    try {
+      await deleteItems(detail.id);
+      router.push("/");
+    } catch (e) {
+      console.error(e);
+      alert("삭제 실패");
+    }
+  }
+
+  // 수정완료
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!detail) return;
@@ -106,13 +122,11 @@ export default function TodoDetailPage() {
 
     await editItem(detail.id, {
       name: trimmedName,
-      memo: memo.trim() || null,
-      imageUrl: imageUrl.trim() || null,
+      memo: memo.trim(),
+      imageUrl: imageUrl.trim(),
       isCompleted,
     });
 
-    alert("수정되었습니다.");
-    // 수정 후 목록 페이지로 이동
     router.push("/");
   }
 
@@ -125,7 +139,7 @@ export default function TodoDetailPage() {
             <form
               onSubmit={handleSubmit}
             >
-              <div className="check-box-wrap">
+              <div className={`check-box-wrap ${isCompleted ? "checked" : ""}`}>
                 <label className="check-label">
                   <input
                     type="checkbox"
@@ -139,48 +153,62 @@ export default function TodoDetailPage() {
                   <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    style={{ width: "100%", padding: 4 }}
                   />
                 </label>
               </div>
 
-              <label>
-                메모
-                <textarea
-                  value={memo}
-                  onChange={(e) => setMemo(e.target.value)}
-                  rows={3}
-                  style={{ width: "100%", padding: 4 }}
-                />
-              </label>
+              <div className="detail-con">
+                <div className={`file-wrap ${!imageUrl ? "no-data" : ""}`}>
+                  {!!imageUrl && (
+                    <div className="preview">
+                      <img src={imageUrl} alt="미리보기" />
+                    </div>
+                  )}
 
-              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={isUploading}
-                >
-                  {isUploading ? "업로드 중..." : "첨부하기"}
-                </button>
+                  <button
+                    className="btn-file"
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isUploading}
+                  >
+                  </button>
 
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  onChange={handleFileChange}
-                />
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleFileChange}
+                  />
+                </div>
+
+                <div className="memo-wrap">
+                  <label>
+                    <div className="title">Memo</div>
+                    <textarea
+                      value={memo}
+                      onChange={(e) => setMemo(e.target.value)}
+                      rows={3}
+                    />
+                  </label>
+                </div>
               </div>
 
-              {!!imageUrl && (
-                <div style={{ marginTop: 8 }}>
-                  <img src={imageUrl} alt="preview" style={{ maxWidth: 300 }} />
-                </div>
-              )}
 
-              <div style={{ marginTop: 8 }}>
-                <button type="submit" disabled={!isDirty || isUploading}>
-                  수정 완료
+              <div className="btn-wrap">
+                <button
+                  type="submit"
+                  disabled={!isDirty || isUploading}
+                  className={`btn-submit ${(!isDirty || isUploading) ? "disabled" : ""}`}
+                >
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleDelete}
+                  disabled={isUploading}
+                  className="btn-delete"
+                >
                 </button>
               </div>
             </form>
