@@ -1,0 +1,182 @@
+@charset "UTF-8";
+@use "./_variables" as *;
+@import "./reset";
+
+@font-face {
+  font-family: "NanumSquare";
+  src: url("/assets/fonts/NanumSquareL.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NanumSquare";
+  src: url("/assets/fonts/NanumSquareR.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NanumSquare";
+  src: url("/assets/fonts/NanumSquareB.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NanumSquare";
+  src: url("/assets/fonts/NanumSquareEB.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+html,
+body {
+  font-family: "NanumSquare", -apple-system, BlinkMacSystemFont, system-ui,
+    sans-serif;
+}
+
+.inner {
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+}
+
+@media (max-width: 744px) {
+  .inner {
+    max-width: 744px;
+  }
+}
+
+@media (max-width: 375px) {
+  .inner {
+    max-width: 375px;
+  }
+}
+
+
+header {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background: #fff;
+  border-bottom: 1px solid $color-slate-200;
+}
+
+button {
+  &.btn-add {
+    flex-shrink: 0;
+    width: 168px;
+    height: 56px;
+    background: url("../../public/assets/images/btn-add-on.svg") no-repeat 0 / cover;
+    
+    &.on {
+      background: url("../../public/assets/images/btn-add-off.svg") no-repeat 0 / cover;
+    }
+  }
+}
+
+main {
+  margin-top: 24px;
+
+  .con {
+    margin-top: 40px;
+    display: flex;
+    gap: 24px;
+    
+    .left-box {
+      width: 50%;
+    }
+
+    .right-box {
+      width: 50%;
+    }
+
+    .item-list-wrap {
+      margin-top: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      
+      &.checked {
+        .item-list {
+          background: $color-violet-100;
+          border: 2px solid $color-slate-900;
+        }
+      }
+
+      .item-list {
+        padding: 9px 12px;
+        width: 100%;
+        border-radius: 27px;
+        background: #fff;
+        border: 2px solid $color-slate-900;
+        
+        & + .item-list {
+          margin-top: 16px;
+        }
+
+        .info {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          gap: 16px; 
+        }
+      }
+    }
+
+    // 데이터 없을 때
+    .no-data {
+      margin-top: 64px;
+    
+      p {
+        margin-top: 24px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
+        color: $color-slate-400;
+      }
+    }
+  }
+
+  // detail start ----------------
+
+  .detail-wrap {
+    padding: 0 102px;
+    width: 100%;
+    background: #fff;
+  }
+  .check-box-wrap {
+    width: 100%;
+    border: 2px solid $color-slate-900;
+    background: #fff;
+    border-radius: 24px;
+  }
+}
+
+.input-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  .enter-inp-wrap {
+    position: relative;
+    padding: 17px 24px;
+    width: 100%;
+    height: 56px;
+    font-size: 16px;
+    font-weight: 400;
+    color: $color-slate-500;
+    border-radius: 24px;
+    background: url("../../public/assets/images/search.png") no-repeat 0 / cover;
+    .enter-inp {
+      width: 100%;
+    }
+  }
+}
