@@ -174,13 +174,12 @@ body {
 
 @media (max-width: 744px) {
   .inner {
-    max-width: 744px;
     padding: 0 24px;
   }
 }
 @media (max-width: 375px) {
   .inner {
-    max-width: 375px;
+    padding: 0 16px;
   }
 }
 header {
@@ -189,6 +188,17 @@ header {
   height: 60px;
   background: #fff;
   border-bottom: 1px solid #E2E8F0;
+}
+header .logo {
+  width: 150px;
+  height: 40px;
+  background: url("../../public/assets/images/logo.svg") no-repeat 0/cover;
+}
+@media (max-width: 375px) {
+  header .logo {
+    width: 71px;
+    background: url("../../public/assets/images/logo-m.svg") no-repeat 0/cover;
+  }
 }
 
 button.btn-add {
@@ -217,15 +227,35 @@ button.btn-delete {
   button.btn-add {
     width: 162px;
     height: 56px;
-    background: url("../../public/assets/images/btn-add-off.svg") no-repeat 0/cover;
+    background-size: 100% 100%;
+  }
+  button.btn-add.on {
+    background-size: 100% 100%;
   }
   button.btn-submit {
     width: 162px;
     height: 56px;
+    background-size: 100% 100%;
+  }
+  button.btn-submit.disabled {
+    background-size: 100% 100%;
   }
   button.btn-delete {
     width: 162px;
     height: 56px;
+    background-size: 100% 100%;
+  }
+}
+@media (max-width: 375px) {
+  button.btn-add {
+    width: 56px;
+    height: 56px;
+    background-size: 100% 100%;
+    background: url("../../public/assets/images/btn-add-off-mob.svg") no-repeat 0/cover;
+  }
+  button.btn-add.on {
+    background: url("../../public/assets/images/btn-add-on-mob.svg") no-repeat 0/cover;
+    background-size: 100% 100%;
   }
 }
 
@@ -273,6 +303,11 @@ main .con .item-list-wrap .item-list .info {
   width: 100%;
   gap: 16px;
 }
+main .con .item-list-wrap .item-list .info h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 main .con .no-data {
   margin-top: 64px;
 }
@@ -299,6 +334,11 @@ main .detail-wrap {
   padding: 0 102px;
   width: 100%;
   background: #fff;
+}
+@media (max-width: 744px) {
+  main .detail-wrap {
+    padding: 0;
+  }
 }
 main .check-box-wrap {
   gap: 16px;
@@ -334,6 +374,9 @@ main .custom-checkbox {
 main .check-label input[type=checkbox]:checked + .custom-checkbox {
   background: url("/assets/images/img-check-on.svg");
 }
+main .name-label input {
+  text-decoration: underline;
+}
 
 .input-wrap {
   display: flex;
@@ -363,7 +406,15 @@ main .check-label input[type=checkbox]:checked + .custom-checkbox {
   .input-wrap .enter-inp-wrap {
     width: calc(100% - 190px);
     background: url("../../public/assets/images/search.png") no-repeat 0/cover;
-    background-size: 100% 100%;
+  }
+}
+@media (max-width: 375) {
+  .input-wrap {
+    gap: 16px;
+  }
+  .input-wrap .enter-inp-wrap {
+    width: calc(100% - 72px);
+    background: url("../../public/assets/images/search.png") no-repeat 0/cover;
   }
 }
 
@@ -428,10 +479,27 @@ main .check-label input[type=checkbox]:checked + .custom-checkbox {
   background-color: #FDE68A;
   border-radius: 3px;
 }
+@media (max-width: 744px) {
+  .detail-con {
+    display: block;
+  }
+  .detail-con .file-wrap {
+    width: 100%;
+  }
+  .detail-con .memo-wrap {
+    margin-top: 24px;
+    width: 100%;
+  }
+}
 
 .btn-wrap {
   margin-top: 24px;
   display: flex;
   gap: 16px;
   justify-content: flex-end;
+}
+@media (max-width: 744px) {
+  .btn-wrap {
+    justify-content: center;
+  }
 }/*# sourceMappingURL=globals.css.map */

@@ -48,14 +48,13 @@ body {
 
 @media (max-width: 744px) {
   .inner {
-    max-width: 744px;
     padding: 0 24px;
   }
 }
 
 @media (max-width: 375px) {
   .inner {
-    max-width: 375px;
+    padding: 0 16px;
   }
 }
 
@@ -66,6 +65,17 @@ header {
   height: 60px;
   background: #fff;
   border-bottom: 1px solid $color-slate-200;
+
+  .logo {
+    width: 150px;
+    height: 40px;
+    background: url("../../public/assets/images/logo.svg") no-repeat 0 / cover;
+    
+    @media (max-width: 375px) {
+      width: 71px;
+      background: url("../../public/assets/images/logo-m.svg") no-repeat 0 / cover;
+    }
+  }
 }
 
 button {
@@ -100,18 +110,54 @@ button {
     &.btn-add {
       width: 162px;
       height: 56px;
-      background: url("../../public/assets/images/btn-add-off.svg") no-repeat 0 / cover;
+      background-size: 100% 100%;
+      &.on {
+        background-size: 100% 100%;
+      }
     }
-  
+    
     &.btn-submit {
       width: 162px;
       height: 56px;
+      background-size: 100% 100%;
+      &.disabled {
+        background-size: 100% 100%;
+      }
     }
-  
+    
     &.btn-delete {
       width: 162px;
       height: 56px;
+      background-size: 100% 100%;
     }
+  }
+
+  @media (max-width: 375px) {
+    &.btn-add {
+      width: 56px;
+      height: 56px;
+      background-size: 100% 100%;
+      background: url("../../public/assets/images/btn-add-off-mob.svg") no-repeat 0 / cover;
+      &.on {
+        background: url("../../public/assets/images/btn-add-on-mob.svg") no-repeat 0 / cover;
+        background-size: 100% 100%;
+      }
+    }
+    
+    // &.btn-submit {
+    //   width: 56px;
+    //   height: 56px;
+    //   background-size: 100% 100%;
+    //   &.disabled {
+    //     background-size: 100% 100%;
+    //   }
+    // }
+    
+    // &.btn-delete {
+    //   width: 56px;
+    //   height: 56px;
+    //   background-size: 100% 100%;
+    // }
   }
 }
 
@@ -167,6 +213,12 @@ main {
           align-items: center;
           width: 100%;
           gap: 16px;
+
+          h3 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
       }
     }
@@ -208,6 +260,10 @@ main {
     padding: 0 102px;
     width: 100%;
     background: #fff;
+
+    @media (max-width: 744px) {
+      padding: 0;
+    }
   }
 
   .check-box-wrap {
@@ -250,6 +306,12 @@ main {
     background: url("/assets/images/img-check-on.svg");
   }
 
+  .name-label {
+    input {
+      text-decoration: underline;
+    }
+  }
+
 }
 
 .input-wrap {
@@ -281,7 +343,15 @@ main {
     .enter-inp-wrap {
       width: calc(100% - 190px);
       background: url("../../public/assets/images/search.png") no-repeat 0 / cover;
-      background-size: 100% 100%;
+    }
+  }
+
+  @media (max-width: 375) {
+    gap: 16px;
+
+    .enter-inp-wrap {
+      width: calc(100% - 72px);
+      background: url("../../public/assets/images/search.png") no-repeat 0 / cover;
     }
   }
 
@@ -360,6 +430,17 @@ main {
     }
   }
 
+  @media (max-width: 744px) {
+    display: block;
+
+    .file-wrap {
+      width: 100%;
+    }    
+    .memo-wrap {
+      margin-top: 24px;
+      width: 100%;
+    }
+  }
 }
 
 .btn-wrap {
@@ -367,4 +448,9 @@ main {
   display: flex;
   gap: 16px;
   justify-content: flex-end;
+  @media (max-width: 744px) {
+    justify-content: center;
+    
+  }
 }
+
